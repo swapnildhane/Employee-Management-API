@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using EmployeeAPI.Data;
-using EmployeeAPI.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using EmployeeAPI.Models;
+using EmployeeAPI.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeAPI.Controllers
 {
@@ -9,43 +8,33 @@ namespace EmployeeAPI.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        public EmployeesController(AppDbContext context)
+        private readonly EmployeeService _service;
+
+        public EmployeesController(EmployeeService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _context.Employees.ToListAsync());
+        public async Task<IActionResult> Get() => Ok(await _service.GetAll());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) =>
-            Ok(await _context.Employees.FindAsync(id));
+        public async Task<IActionResult> Get(int id)
+        {
+            var emp = await _service.Get(id);
+            return emp == null ? NotFound() : Ok(emp);
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Employee emp)
-        {
-            _context.Employees.Add(emp);
-            await _context.SaveChangesAsync();
-            return Ok("Employee Added");
-        }
+        public async Task<IActionResult> Post(Employee employee)
+            => Ok(await _service.Create(employee));
 
         [HttpPut]
-        public async Task<IActionResult> Update(Employee emp)
-        {
-            _context.Employees.Update(emp);
-            await _context.SaveChangesAsync();
-            return Ok("Employee Updated");
-        }
+        public async Task<IActionResult> Put(Employee employee)
+            => Ok(await _service.Update(employee));
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
-        {
-            var emp = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(emp);
-            await _context.SaveChangesAsync();
-            return Ok("Employee Deleted");
-        }
+            => Ok(await _service.Delete(id));
     }
 }

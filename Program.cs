@@ -1,4 +1,7 @@
 ﻿using EmployeeAPI.Data;
+using EmployeeAPI.Interfaces;
+using EmployeeAPI.Repositories;
+using EmployeeAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +14,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<EmployeeService>();
 var app = builder.Build();
 
 // ✅ Swagger UI
