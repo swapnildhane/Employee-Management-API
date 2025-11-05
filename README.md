@@ -1,70 +1,70 @@
-Employee Management REST API using .NET 7 / .NET 8, EF Core, and SQL Server
+# Employee Management REST API using .NET 7 / .NET 8, EF Core, and SQL Server
 
-Following are the steps
+<b>Following are the steps</b>
 
-1. Create the Project
-   dotnet new webapi -n EmployeeAPI
-   cd EmployeeAPI
-2. Install EF Core Packages
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-  dotnet add package Microsoft.EntityFrameworkCore.Tools
-3. Create Model
-   Models/Employee.cs
-4. Configure DBContext
-   Data/AppDbContext.cs
-    using Microsoft.EntityFrameworkCore;
-    using EmployeeAPI.Models;
+<b>1. Create the Project</b>
+   dotnet new webapi -n EmployeeAPI<br/>
+   cd EmployeeAPI<br/>
+<b>2. Install EF Core Packages</b>
+   dotnet add package Microsoft.EntityFrameworkCore.SqlServer<br/>
+  dotnet add package Microsoft.EntityFrameworkCore.Tools<br/>
+<b>3. Create Model</b>
+   Models/Employee.cs<br/>
+<b>4. Configure DBContext</b>
+   Data/AppDbContext.cs<br/>
+    using Microsoft.EntityFrameworkCore;<br/>
+    using EmployeeAPI.Models;<br/>
     
-    namespace EmployeeAPI.Data
-    {
-        public class AppDbContext : DbContext
+    namespace EmployeeAPI.Data<br/>
+    {<br/>
+        public class AppDbContext : DbContext<br/>
         {
-            public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+            public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) <br/>{ <br/>}
     
-            public DbSet<Employee> Employees { get; set; }
-        }
-    }
-5. Add Connection String
-   appsettings.json
-   "ConnectionStrings": {
-  "DefaultConnection": "Server=YOUR_SQL_SERVER_NAME;Database=EmployeeDB;Trusted_Connection=True;TrustServerCertificate=True;"
-  }
-6. Register DbContext in Program.cs
-   using EmployeeAPI.Data;
-    using Microsoft.EntityFrameworkCore;
+            public DbSet<Employee> Employees { get; set; }<br/>
+        }<br/>
+    }<br/>
+<b>5. Add Connection String</b>
+   appsettings.json<br/>
+   "ConnectionStrings": {<br/>
+  "DefaultConnection": "Server=YOUR_SQL_SERVER_NAME;Database=EmployeeDB;Trusted_Connection=True;TrustServerCertificate=True;"<br/>
+  }<br/>
+<b>6. Register DbContext in Program.cs</b>
+   using EmployeeAPI.Data;<br/>
+    using Microsoft.EntityFrameworkCore;<br/>
     
-    var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(args);<br/>
     
-    builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Services.AddDbContext<AppDbContext>(options =><br/>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));<br/>
     
-    // Add Controller + Swagger
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    // Add Controller + Swagger<br/>
+    builder.Services.AddControllers();<br/>
+    builder.Services.AddEndpointsApiExplorer();<br/>
+    builder.Services.AddSwaggerGen();<br/>
     
-    var app = builder.Build();
+    var app = builder.Build();<br/>
     
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+    if (app.Environment.IsDevelopment())<br/>
+    {<br/>
+        app.UseSwagger();<br/>
+        app.UseSwaggerUI();<br/>
+    }<br/>
     
-    app.UseHttpsRedirection();
-    app.UseAuthorization();
+    app.UseHttpsRedirection();<br/>
+    app.UseAuthorization();<br/>
     
-    app.MapControllers();
+    app.MapControllers();<br/>
     
-    app.Run();
-7. Create Controller
-   Controllers/EmployeesController.cs
-8. Create DB using Migration
-   dotnet ef migrations add InitialCreate
-   dotnet ef database update
-9. Run & Test
-   dotnet run
-   dotnet watch
+    app.Run();<br/>
+<b>7. Create Controller</b>
+   Controllers/EmployeesController.cs<br/>
+<b>8. Create DB using Migration</b>
+   dotnet ef migrations add InitialCreate<br/>
+   dotnet ef database update<br/>
+<b>9. Run & Test</b>
+   dotnet run<br/>
+   dotnet watch<br/>
 
 
 
