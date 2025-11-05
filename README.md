@@ -15,15 +15,15 @@
     using Microsoft.EntityFrameworkCore;<br/>
     using EmployeeAPI.Models;<br/>
     
-    namespace EmployeeAPI.Data<br/>
-    {<br/>
-        public class AppDbContext : DbContext<br/>
+    namespace EmployeeAPI.Data
+    {
+        public class AppDbContext : DbContext
         {
-            public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) <br/>{ <br/>}
+            public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){ }
     
-            public DbSet<Employee> Employees { get; set; }<br/>
-        }<br/>
-    }<br/>
+            public DbSet<Employee> Employees { get; set; }
+        }
+    }
 <b>5. Add Connection String</b><br/>
    appsettings.json<br/>
    "ConnectionStrings": {<br/>
