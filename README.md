@@ -33,30 +33,30 @@
    using EmployeeAPI.Data;<br/>
     using Microsoft.EntityFrameworkCore;<br/>
     
-    var builder = WebApplication.CreateBuilder(args);<br/>
+    var builder = WebApplication.CreateBuilder(args);
     
-    builder.Services.AddDbContext<AppDbContext>(options =><br/>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));<br/>
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
     
-    // Add Controller + Swagger<br/>
-    builder.Services.AddControllers();<br/>
-    builder.Services.AddEndpointsApiExplorer();<br/>
-    builder.Services.AddSwaggerGen();<br/>
+    // Add Controller + Swagger
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
     
-    var app = builder.Build();<br/>
+    var app = builder.Build();
     
-    if (app.Environment.IsDevelopment())<br/>
-    {<br/>
-        app.UseSwagger();<br/>
-        app.UseSwaggerUI();<br/>
-    }<br/>
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
     
-    app.UseHttpsRedirection();<br/>
-    app.UseAuthorization();<br/>
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
     
-    app.MapControllers();<br/>
+    app.MapControllers();
     
-    app.Run();<br/>
+    app.Run();
 <b>7. Create Controller</b><br/>
    Controllers/EmployeesController.cs<br/>
 <b>8. Create DB using Migration</b><br/>
