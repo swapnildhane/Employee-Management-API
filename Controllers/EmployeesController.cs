@@ -1,6 +1,7 @@
 ﻿using EmployeeAPI.Models;
 using EmployeeAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeAPI.Controllers
 {
