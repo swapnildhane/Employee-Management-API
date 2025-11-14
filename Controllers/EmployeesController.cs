@@ -26,12 +26,23 @@ namespace EmployeeAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Employee employee)
-            => Ok(await _service.Create(employee));
+        public async Task<IActionResult> Post([FromBody]Employee employee)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var created = await _service.Create(employee);
+            return Ok(created);
+        }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Employee employee)
-            => Ok(await _service.Update(employee));
+        public async Task<IActionResult> Put([FromBody]Employee employee)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var Updated = await _service.Update(employee);
+               return Ok(Updated);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
